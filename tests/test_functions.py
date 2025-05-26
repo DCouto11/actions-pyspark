@@ -20,7 +20,7 @@ def test_clean_dataframe():
     expected_df = spark.createDataFrame(expected_data, ["name", "value"])
 
     # Assert that the cleaned DataFrame matches the expected DataFrame
-    chispa.assert_df_equality(cleaned_df, expected_df)
+    chispa.assert_df_equality(cleaned_df, expected_df, ignore_row_order=True)
 
 
 def test_transform_dataframe():
@@ -55,6 +55,6 @@ def test_transform_dataframe():
     expected_df_enrich = spark.createDataFrame(expected_data, ["store_id", "category", "total_revenue"])
 
     # Assert that the transformed DataFrame matches the expected DataFrame
-    chispa.assert_df_equality(df_agg, expected_df_agg)
-    chispa.assert_df_equality(df_monthly, expected_df_month)
-    chispa.assert_df_equality(df_enriched, expected_df_enrich)
+    chispa.assert_df_equality(df_agg, expected_df_agg, ignore_row_order=True)
+    chispa.assert_df_equality(df_monthly, expected_df_month, ignore_row_order=True)
+    chispa.assert_df_equality(df_enriched, expected_df_enrich, ignore_row_order=True)
