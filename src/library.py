@@ -22,7 +22,7 @@ def clean_dataframe(df):
     df = df.select([trim(col).alias(col) if isinstance(df.schema[col].dataType, StringType) else col for col in df.columns])
     return df
 
-@udf
+@udf(StringType())
 def categorize_products(val):
     """
     Categorize products based on their values.
@@ -69,8 +69,7 @@ def transform_dataframe(df_product, df_sales, df_store):
 
     df_enriched = df_unified.select("transaction_id","store_name","location","product_name","category","quantity","transaction_date", "price")
 
-    categorize_products_udf = udf(categorize_products , StringType())
-    df_enriched = df_enriched.withColumn("price_category", categorize_products_udf(col("price")))
+    df_enriched = df_enriched.withColumn("price_category", categorize_products(col("price")))
     df_enriched.show()
     
     return df_agg, df_monthly_insights, df_enriched
