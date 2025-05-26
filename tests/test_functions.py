@@ -33,7 +33,7 @@ def test_transform_dataframe():
         StructField("location", StringType(), True)
     ])
     data_store = [(1, "Test", "Avenue Test 3295")]
-    df_store = spark.createDataFrame(data_store, ["store_id","store_name","location"], schema=schema_stores)
+    df_store = spark.createDataFrame(data_store, schema=schema_stores)
 
     schema_sales = StructType([
         StructField("transaction_id", IntegerType(), True),
@@ -44,7 +44,7 @@ def test_transform_dataframe():
         StructField("price", DecimalType(5,2), True)
     ])
     data_sales = [(1,1,1,10,'2025-01-01',50.00),(2,1,2,20,'2025-02-01',10.00),(3,1,1,5,'2025-02-01',150.00),(4,1,2,10,'2025-01-01',250.00)]
-    df_sales = spark.createDataFrame(data_sales, ["transaction_id","store_id","product_id","quantity","transaction_date","price"], schema=schema_sales)
+    df_sales = spark.createDataFrame(data_sales, schema=schema_sales)
 
     schema_products = StructType([
         StructField("product_id", IntegerType(), True),
@@ -52,7 +52,7 @@ def test_transform_dataframe():
         StructField("category", StringType(), True)
     ])
     data_product = [(1, "Product A", "Category 1"), (2, "Product B", "Category 2")]
-    df_product = spark.createDataFrame(data_product, ["product_id", "product_name", "category"], schema=schema_products)
+    df_product = spark.createDataFrame(data_product, schema=schema_products)
 
     # Transform the DataFrame
     df_agg, df_monthly, df_enriched = transform_dataframe(df_product, df_sales, df_store)
