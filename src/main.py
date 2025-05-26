@@ -32,10 +32,6 @@ df_products = spark.read.option("header", "true").option("delimiter",";").schema
 df_sales = spark.read.option("header", "true").option("delimiter",";").schema(schema_sales).csv("files/sales.csv")
 df_stores = spark.read.option("header", "true").option("delimiter",";").schema(schema_stores).csv("files/stores.csv")
 
-df_products.show()
-df_sales.show()
-df_stores.show()
-
 # Cleaning DataFrames (removing nulls, duplicates, trimming strings)
 df_prod_clean = clean_dataframe(df_products)
 df_sales_clean = clean_dataframe(df_sales)
