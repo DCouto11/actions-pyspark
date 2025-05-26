@@ -31,9 +31,9 @@ def categorize_products(col):
     Returns:
         Column: New column with a label of 3 possible values.
     """
-    return col.when(col < 20, "Low") \
-             .when((col >= 20) & (col <= 100), "Medium") \
-             .otherwise("High")
+    return when(col < 20, "Low") \
+          .when((col >= 20) & (col <= 100), "Medium") \
+          .otherwise("High")
 
 def transform_dataframe(df_product, df_sales, df_store):
     """
