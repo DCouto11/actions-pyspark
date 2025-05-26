@@ -41,7 +41,7 @@ df_stores_clean = clean_dataframe(df_stores)
 df_agg_sales, df_monthly_sales, df_enriched_sales = transform_dataframe(df_prod_clean, df_sales_clean, df_stores_clean)
 
 # Saving DataFrames in CSV format
-df_agg_sales.write.mode("overwrite").csv("output/agg_sales.csv", header=True)
+df_agg_sales.coalesce(1).write.mode("overwrite").csv("output/agg_sales.csv", header=True)
 
 # Saving DataFrames in Parquet format
 #df_enriched_sales.write.partitionBy('category','transaction_date').mode("overwrite").parquet("output/enriched_sales.parquet")
