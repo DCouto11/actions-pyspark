@@ -42,10 +42,10 @@ def test_transform_dataframe():
                          (1,"Category 2", 2700)]
     expected_df_agg = spark.createDataFrame(expected_data_agg, ["store_id", "category", "total_revenue"])
 
-    expected_data_month = [(2025, 01, "Category 1", 10), 
-                           (2025, 02, "Category 2", 20),
-                           (2025, 02, "Category 1", 5),
-                           (2025, 01, "Category 2", 10)]
+    expected_data_month = [(2025, 1, "Category 1", 10), 
+                           (2025, 2, "Category 2", 20),
+                           (2025, 2, "Category 1", 5),
+                           (2025, 1, "Category 2", 10)]
     expected_df_month = spark.createDataFrame(expected_data_month, ["year", "month", "category", "total_quantity"])
 
     expected_data_enrich = [(1,"Test","Avenue Test 3295", "Product A", "Category 1", 10, '2025-01-01', 50.00,"Medium"),
