@@ -52,7 +52,7 @@ def test_transform_dataframe():
                             (2,"Test","Avenue Test 3295", "Product B", "Category 2", 20, '2025-02-01', 10.00,"Low"),
                             (3,"Test","Avenue Test 3295", "Product A", "Category 1",  5, '2025-02-01',150.00,"High"),
                             (4,"Test","Avenue Test 3295", "Product B", "Category 2", 10, '2025-01-01',250.00,"High")]
-    expected_df_enrich = spark.createDataFrame(expected_data, ["store_id", "category", "total_revenue"])
+    expected_df_enrich = spark.createDataFrame(expected_data_enrich, ["store_id", "category", "total_revenue"])
 
     # Assert that the transformed DataFrame matches the expected DataFrame
     chispa.assert_df_equality(df_agg, expected_df_agg, ignore_row_order=True)
