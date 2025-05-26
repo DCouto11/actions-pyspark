@@ -1,5 +1,5 @@
 from pyspark.sql import SparkSession
-from pyspark.sql.types import StructType, StructField, StringType, IntegerType, DateType, DecimalType
+from pyspark.sql.types import StructType, StructField, StringType, IntegerType, DateType, FloatType
 from functions import clean_dataframe, transform_dataframe
 
 # Create spark session
@@ -19,7 +19,7 @@ schema_sales = StructType([
     StructField("product_id", IntegerType(), True),
     StructField("quantity", IntegerType(), True),
     StructField("transaction_date", DateType(), True),
-    StructField("price", DecimalType(5,2), True)
+    StructField("price", FloatType(), True)
 ])
 schema_stores = StructType([
     StructField("store_id", IntegerType(), True),

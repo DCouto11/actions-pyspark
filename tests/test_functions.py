@@ -2,7 +2,7 @@ import chispa
 import pytest
 import datetime
 from pyspark.sql import SparkSession
-from pyspark.sql.types import StructType, StructField, StringType, IntegerType, DateType, DecimalType
+from pyspark.sql.types import StructType, StructField, StringType, IntegerType, DateType, FloatType
 
 from src.functions import (clean_dataframe,transform_dataframe)
 
@@ -42,7 +42,7 @@ def test_transform_dataframe():
         StructField("product_id", IntegerType(), True),
         StructField("quantity", IntegerType(), True),
         StructField("transaction_date", DateType(), True),
-        StructField("price", DecimalType(5,2), True)
+        StructField("price", FloatType(), True)
     ])
     data_sales = [(1,1,1,10,datetime.date(2025,1,1),50.00),
                   (2,1,2,20,datetime.date(2025,2,1),10.00),
