@@ -64,6 +64,7 @@ def test_transform_dataframe():
     # Expected DataFrame after transformation
     expected_data_agg = [(1,"Category 1", 1250.00), 
                          (1,"Category 2", 2700.00)]
+    
     schema_expected_agg = StructType([
         StructField("store_id", IntegerType(), True),
         StructField("category", StringType(), True),
@@ -79,7 +80,7 @@ def test_transform_dataframe():
         StructField("year", IntegerType(), True),
         StructField("month", IntegerType(), True),
         StructField("category", StringType(), True),
-        StructField("total_quantity", DoubleType(), True)
+        StructField("total_quantity", IntegerType(), True)
     ])
     expected_df_month = spark.createDataFrame(expected_data_month, schema=schema_expected_month)
 
