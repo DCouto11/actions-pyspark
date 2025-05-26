@@ -88,6 +88,7 @@ def test_transform_dataframe():
                             (2,"Test","Avenue Test 3295", "Product B", "Category 2", 20, datetime.date(2025,2,1), 10.00,"Low"),
                             (3,"Test","Avenue Test 3295", "Product A", "Category 1",  5, datetime.date(2025,2,1),150.00,"High"),
                             (4,"Test","Avenue Test 3295", "Product B", "Category 2", 10, datetime.date(2025,1,1),250.00,"High")]
+                            
     schema_expected_enrich = StructType([
         StructField("transaction_id", IntegerType(), True),
         StructField("store_name", StringType(), True),
