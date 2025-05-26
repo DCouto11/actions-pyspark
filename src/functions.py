@@ -70,8 +70,6 @@ def transform_dataframe(df_product, df_sales, df_store):
 
     categorize_products_udf = udf(categorize_products , StringType())
     df_enriched = df_enriched.withColumn("price_category", categorize_products_udf(col("price")))
+    df_enriched.show()
     
-    df_agg.show()
-    df_monthly_insights.show()
-
     return df_agg, df_monthly_insights, df_enriched
