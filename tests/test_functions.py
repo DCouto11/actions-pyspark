@@ -28,7 +28,7 @@ def test_transform_dataframe():
     data_store = [(1, "Test", "Avenue Test 3295")]
     df_store = spark.createDataFrame(data_store, ["store_id","store_name","location"])
 
-    data_sales = [(1,1,1,10,2025-01-01,50.00),(2,1,2,20,2025-02-01,10.00),(3,1,1,5,2025-02-01,150.00),(4,1,2,10,2025-01-01,250.00)]
+    data_sales = [(1,1,1,10,'2025-01-01',50.00),(2,1,2,20,'2025-02-01',10.00),(3,1,1,5,'2025-02-01',150.00),(4,1,2,10,'2025-01-01',250.00)]
     df_sales = spark.createDataFrame(data_sales, ["transaction_id","store_id","product_id","quantity","transaction_date","price"])
 
     data_product = [(1, "Product A", "Category 1"), (2, "Product B", "Category 2")]
@@ -48,10 +48,10 @@ def test_transform_dataframe():
                            (2025, 01, "Category 2", 10)]
     expected_df_month = spark.createDataFrame(expected_data_month, ["year", "month", "category", "total_quantity"])
 
-    expected_data_enrich = [(1,"Test","Avenue Test 3295", "Product A", "Category 1", 10, 2025-01-01, 50.00,"Medium"),
-                            (2,"Test","Avenue Test 3295", "Product B", "Category 2", 20, 2025-02-01, 10.00,"Low"),
-                            (3,"Test","Avenue Test 3295", "Product A", "Category 1",  5, 2025-02-01,150.00,"High"),
-                            (4,"Test","Avenue Test 3295", "Product B", "Category 2", 10, 2025-01-01,250.00,"High")]
+    expected_data_enrich = [(1,"Test","Avenue Test 3295", "Product A", "Category 1", 10, '2025-01-01', 50.00,"Medium"),
+                            (2,"Test","Avenue Test 3295", "Product B", "Category 2", 20, '2025-02-01', 10.00,"Low"),
+                            (3,"Test","Avenue Test 3295", "Product A", "Category 1",  5, '2025-02-01',150.00,"High"),
+                            (4,"Test","Avenue Test 3295", "Product B", "Category 2", 10, '2025-01-01',250.00,"High")]
     expected_df_enrich = spark.createDataFrame(expected_data, ["store_id", "category", "total_revenue"])
 
     # Assert that the transformed DataFrame matches the expected DataFrame
