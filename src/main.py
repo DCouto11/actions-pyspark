@@ -43,8 +43,10 @@ df_agg_sales, df_monthly_sales, df_enriched_sales = transform_dataframe(df_prod_
 
 # Saving DataFrames in CSV format
 df_agg_sales.coalesce(1).write.mode("overwrite").csv("output", header=True)
+os.system("rm output/agg_sales.csv")
 os.system("cat output/*.csv > output/agg_sales.csv")
 os.system("rm output/part-*")
+os.system("rm output/*_SUCCESS*")
 
 # Saving DataFrames in Parquet format
 df_enriched_sales.write.partitionBy('category','transaction_date').mode("overwrite").format("parquet").save("output/enriched_sales.parquet")
