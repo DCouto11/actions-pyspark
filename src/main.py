@@ -33,12 +33,12 @@ df_sales = spark.read.option("header", "true").schema(schema_sales).csv("files/s
 df_stores = spark.read.option("header", "true").schema(schema_stores).csv("files/stores.csv")
 
 # Cleaning DataFrames (removing nulls, duplicates, trimming strings)
-df_prod_clean = clean_dataframe(spark, df_products)
-df_sales_clean = clean_dataframe(spark, df_sales)
-df_stores_clean = clean_dataframe(spark, df_stores)
+df_prod_clean = clean_dataframe(df_products)
+df_sales_clean = clean_dataframe(df_sales)
+df_stores_clean = clean_dataframe(df_stores)
 
 # DataFrame transformations (sales aggregation, monthly sales insights)
-df_agg_sales, df_monthly_sales, df_enriched_sales = transform_dataframe(spark, df_prod_clean, df_sales_clean, df_stores_clean)
+df_agg_sales, df_monthly_sales, df_enriched_sales = transform_dataframe(df_prod_clean, df_sales_clean, df_stores_clean)
 
 # Saving DataFrames in CSV format
 df_agg_sales.write.mode("overwrite").csv("output/agg_sales.csv", header=True)
