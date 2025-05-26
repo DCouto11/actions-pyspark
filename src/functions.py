@@ -12,8 +12,8 @@ def clean_dataframe(df):
         df_clean: Clean DataFrame.
     """
 
-    # Remove rows with null values in all columns
-    df = df.dropna(how='all')
+    # Remove rows with null values in any column
+    df = df.dropna(how="any")
 
     # Remove duplicate rows
     df = df.dropDuplicates()
