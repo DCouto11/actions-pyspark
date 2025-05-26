@@ -22,18 +22,18 @@ def clean_dataframe(df):
     df = df.select([trim(col).alias(col) if isinstance(df.schema[col].dataType, StringType) else col for col in df.columns])
     return df
 
-def categorize_products(col):
+def categorize_products(val):
     """
     Categorize products based on their values.
     Args:
-        col (Column): Column containing product prices.
+        val (float): integer containing product prices.
 
     Returns:
         Column: New column with a label of 3 possible values.
     """
-    return when(col < 20, "Low") \
-          .when((col >= 20) & (col <= 100), "Medium") \
-          .otherwise("High")
+    if val < 20 : return "Low"
+    elif (val >= 20) & (val <= 100) : return "Medium"
+    else: return "High"
 
 def transform_dataframe(df_product, df_sales, df_store):
     """
