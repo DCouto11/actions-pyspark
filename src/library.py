@@ -22,6 +22,7 @@ def clean_dataframe(df):
     df = df.select([trim(col).alias(col) if isinstance(df.schema[col].dataType, StringType) else col for col in df.columns])
     return df
 
+@udf
 def categorize_products(val):
     """
     Categorize products based on their values.
