@@ -1,4 +1,5 @@
 from pyspark.sql import SparkSession
+from pyspark.sql.types import StructType, StructField, StringType, IntegerType, DateType, DecimalType
 from functions import clean_dataframe, transform_dataframe
 
 # Create spark session
@@ -6,10 +7,30 @@ spark = SparkSession.builder \
  .appName("CSV to Parquet") \
  .getOrCreate()
 
-# Loading CSV files into DataFrames
-df_products = spark.read.option("header", "true").csv("files/products.csv")
-df_sales = spark.read.option("header", "true").csv("files/sales.csv")
-df_stores = spark.read.option("header", "true").csv("files/stores.csv")
+# Creating schemas for CSV files
+schema_products = StructType([
+    StructField("product_id", IntegerType(), True),
+    StructField("product_name", StringType(), True),
+    StructField("category", StringType(), True)
+])
+schema_sales = StructType([
+    StructField("transaction_id", IntegerType(), True),
+    StructField("store_id", IntegerType(), True),
+    StructField("product_id", IntegerType(), True),
+    StructField("quantity", IntegerType(), True),
+    StructField("transaction_date", DateType(), True),
+    StructField("price", DecimalType(5,2), True)
+])
+schema_stores = StructType([
+    StructField("store_id", IntegerType(), True),
+    StructField("store_name", StringType(), True),
+    StructField("location", StringType(), True)
+])
+
+# Loading CSV files with schemas into DataFrames
+df_products = spark.read.option("header", "true").schema(schema_products).csv("files/products.csv")
+df_sales = spark.read.option("header", "true").schema(schema_sales).csv("files/sales.csv")
+df_stores = spark.read.option("header", "true").schema(schema_stores).csv("files/stores.csv")
 
 # Cleaning DataFrames (removing nulls, duplicates, trimming strings)
 df_prod_clean = clean_dataframe(spark, df_products)

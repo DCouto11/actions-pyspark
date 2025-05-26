@@ -1,7 +1,7 @@
 from pyspark.sql.functions import trim, col, month, year, udf
 from pyspark.sql.types import StringType
 
-def clean_dataframe(session, df):
+def clean_dataframe(df):
     """
     Clean a Spark DataFrame by removing rows with null values and duplicates.
     Args:
@@ -35,7 +35,7 @@ def categorize_products(col):
              .when((col >= 20) & (col <= 100), "Medium") \
              .otherwise("High")
 
-def transform_dataframe(session, df_product, df_sales, df_store):
+def transform_dataframe(df_product, df_sales, df_store):
     """
     Transform a Spark DataFrame by cleaning it and applying additional transformations.
     Args:
