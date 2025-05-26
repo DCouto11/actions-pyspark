@@ -1,6 +1,7 @@
 from pyspark.sql import SparkSession
 from pyspark.sql.types import StructType, StructField, StringType, IntegerType, DateType, FloatType
 from functions import clean_dataframe, transform_dataframe
+import os
 
 # Create spark session
 spark = SparkSession.builder \
@@ -41,7 +42,8 @@ df_stores_clean = clean_dataframe(df_stores)
 df_agg_sales, df_monthly_sales, df_enriched_sales = transform_dataframe(df_prod_clean, df_sales_clean, df_stores_clean)
 
 # Saving DataFrames in CSV format
-df_agg_sales.coalesce(1).write.mode("overwrite").csv("output/agg_sales.csv", header=True)
+df_agg_sales.coalesce(1).write.mode("overwrite").csv("output", header=True)
+os.system("cat output/*.csv > output/agg_sales.csv")
 
 # Saving DataFrames in Parquet format
 #df_enriched_sales.write.partitionBy('category','transaction_date').mode("overwrite").parquet("output/enriched_sales.parquet")
