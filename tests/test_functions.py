@@ -39,7 +39,7 @@ def test_transform_dataframe():
 
     # Expected DataFrame after transformation
     expected_data_agg = [(1,"Category 1", 1250.00), 
-                         (1,"Category 2", 2700)]
+                         (1,"Category 2", 2700.00)]
     expected_df_agg = spark.createDataFrame(expected_data_agg, ["store_id", "category", "total_revenue"])
 
     expected_data_month = [(2025, 1, "Category 1", 10), 
