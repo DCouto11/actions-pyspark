@@ -73,6 +73,6 @@ def transform_dataframe(df_product, df_sales, df_store):
     
     df_agg.show()
     df_monthly_insights.show()
-    df_enriched.show()
+    df_enriched.printSchema()
 
     return df_agg, df_monthly_insights, df_enriched
