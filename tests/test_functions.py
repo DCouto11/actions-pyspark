@@ -25,14 +25,32 @@ def test_clean_dataframe():
 
 def test_transform_dataframe():
     # Create all sample DataFrame
+    schema_stores = StructType([
+        StructField("store_id", IntegerType(), True),
+        StructField("store_name", StringType(), True),
+        StructField("location", StringType(), True)
+    ])
     data_store = [(1, "Test", "Avenue Test 3295")]
-    df_store = spark.createDataFrame(data_store, ["store_id","store_name","location"])
+    df_store = spark.createDataFrame(data_store, ["store_id","store_name","location"], schema=schema_stores)
 
+    schema_sales = StructType([
+        StructField("transaction_id", IntegerType(), True),
+        StructField("store_id", IntegerType(), True),
+        StructField("product_id", IntegerType(), True),
+        StructField("quantity", IntegerType(), True),
+        StructField("transaction_date", DateType(), True),
+        StructField("price", DecimalType(5,2), True)
+    ])
     data_sales = [(1,1,1,10,'2025-01-01',50.00),(2,1,2,20,'2025-02-01',10.00),(3,1,1,5,'2025-02-01',150.00),(4,1,2,10,'2025-01-01',250.00)]
-    df_sales = spark.createDataFrame(data_sales, ["transaction_id","store_id","product_id","quantity","transaction_date","price"])
+    df_sales = spark.createDataFrame(data_sales, ["transaction_id","store_id","product_id","quantity","transaction_date","price"], schema=schema_sales)
 
+    schema_products = StructType([
+        StructField("product_id", IntegerType(), True),
+        StructField("product_name", StringType(), True),
+        StructField("category", StringType(), True)
+    ])
     data_product = [(1, "Product A", "Category 1"), (2, "Product B", "Category 2")]
-    df_product = spark.createDataFrame(data_product, ["product_id", "product_name", "category"])
+    df_product = spark.createDataFrame(data_product, ["product_id", "product_name", "category"], schema=schema_products)
 
     # Transform the DataFrame
     df_agg, df_monthly, df_enriched = transform_dataframe(df_product, df_sales, df_store)
