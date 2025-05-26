@@ -37,10 +37,6 @@ df_prod_clean = clean_dataframe(df_products)
 df_sales_clean = clean_dataframe(df_sales)
 df_stores_clean = clean_dataframe(df_stores)
 
-df_prod_clean.show()
-df_sales_clean.show()
-df_stores_clean.show()
-
 # DataFrame transformations (sales aggregation, monthly sales insights)
 df_agg_sales, df_monthly_sales, df_enriched_sales = transform_dataframe(df_prod_clean, df_sales_clean, df_stores_clean)
 
