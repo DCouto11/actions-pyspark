@@ -1,5 +1,5 @@
 from pyspark.sql.functions import trim, col, month, year, udf
-from pyspark.sql.types import StringType
+from pyspark.sql.types import StringType, IntegerType
 
 def clean_dataframe(df):
     """
