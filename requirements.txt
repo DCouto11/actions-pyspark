@@ -1,0 +1,6 @@
+### Requirements for the project
+# Pyspark
+pyspark==3.4.1
+
+# Chispa
+chispa==0.11.1
