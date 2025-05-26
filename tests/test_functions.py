@@ -1,6 +1,8 @@
 import chispa
 import pytest
 from pyspark.sql import SparkSession
+from pyspark.sql.types import StructType, StructField, StringType, IntegerType, DateType, DecimalType
+
 from src.functions import (clean_dataframe,transform_dataframe)
 
 spark = SparkSession.builder.appName("Test Functions") \
