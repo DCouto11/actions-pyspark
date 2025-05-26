@@ -6,7 +6,6 @@ spark = SparkSession.builder \
  .appName("CSV to Parquet") \
  .getOrCreate()
 
-
 # Loading CSV files into DataFrames
 df_products = spark.read.option("header", "true").csv("files/products.csv")
 df_sales = spark.read.option("header", "true").csv("files/sales.csv")
