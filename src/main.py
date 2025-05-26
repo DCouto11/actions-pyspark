@@ -44,7 +44,7 @@ df_agg_sales, df_monthly_sales, df_enriched_sales = transform_dataframe(df_prod_
 df_agg_sales.write.mode("overwrite").csv("output/agg_sales.csv", header=True)
 
 # Saving DataFrames in Parquet format
-df_enriched_sales.write.partitionBy('category','transaction_date').mode("overwrite").parquet("output/enriched_sales.parquet")
+#df_enriched_sales.write.partitionBy('category','transaction_date').mode("overwrite").parquet("output/enriched_sales.parquet")
 
 # Ending Spark session
 spark.stop()
