@@ -1,5 +1,6 @@
 import chispa
 import pytest
+import datetime
 from pyspark.sql import SparkSession
 from pyspark.sql.types import StructType, StructField, StringType, IntegerType, DateType, DecimalType
 
@@ -43,7 +44,10 @@ def test_transform_dataframe():
         StructField("transaction_date", DateType(), True),
         StructField("price", DecimalType(5,2), True)
     ])
-    data_sales = [(1,1,1,10,'2025-01-01',50.00),(2,1,2,20,'2025-02-01',10.00),(3,1,1,5,'2025-02-01',150.00),(4,1,2,10,'2025-01-01',250.00)]
+    data_sales = [(1,1,1,10,datetime.time(2025,1,1),50.00),
+                  (2,1,2,20,datetime.time(2025,2,1),10.00),
+                  (3,1,1,5,datetime.time(2025,2,1),150.00),
+                  (4,1,2,10,datetime.time(2025,1,1),250.00)]
     df_sales = spark.createDataFrame(data_sales, schema=schema_sales)
 
     schema_products = StructType([
@@ -68,10 +72,10 @@ def test_transform_dataframe():
                            (2025, 1, "Category 2", 10)]
     expected_df_month = spark.createDataFrame(expected_data_month, ["year", "month", "category", "total_quantity"])
 
-    expected_data_enrich = [(1,"Test","Avenue Test 3295", "Product A", "Category 1", 10, '2025-01-01', 50.00,"Medium"),
-                            (2,"Test","Avenue Test 3295", "Product B", "Category 2", 20, '2025-02-01', 10.00,"Low"),
-                            (3,"Test","Avenue Test 3295", "Product A", "Category 1",  5, '2025-02-01',150.00,"High"),
-                            (4,"Test","Avenue Test 3295", "Product B", "Category 2", 10, '2025-01-01',250.00,"High")]
+    expected_data_enrich = [(1,"Test","Avenue Test 3295", "Product A", "Category 1", 10, datetime.time(2025,1,1), 50.00,"Medium"),
+                            (2,"Test","Avenue Test 3295", "Product B", "Category 2", 20, datetime.time(2025,2,1), 10.00,"Low"),
+                            (3,"Test","Avenue Test 3295", "Product A", "Category 1",  5, datetime.time(2025,2,1),150.00,"High"),
+                            (4,"Test","Avenue Test 3295", "Product B", "Category 2", 10, datetime.time(2025,1,1),250.00,"High")]
     expected_df_enrich = spark.createDataFrame(expected_data_enrich, ["store_id", "category", "total_revenue"])
 
     # Assert that the transformed DataFrame matches the expected DataFrame
