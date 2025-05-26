@@ -64,7 +64,7 @@ def transform_dataframe(df_product, df_sales, df_store):
     df_monthly_insights = df_unified.select("transaction_date", "category", "quantity")
     df_monthly_insights = df_monthly_insights.withColumn("month", month(df_monthly_insights["transaction_date"]))
     df_monthly_insights = df_monthly_insights.withColumn("year", year(df_monthly_insights["transaction_date"]))
-    df_monthly_insights = df_monthly_insights.groupBy("year", "month", "category").sum("quantity").alias("total_quantity")
+    df_monthly_insights = df_monthly_insights.groupBy("year", "month", "category").sum("quantity").withColumnRenamed("sum(quantity)","total_quantity")
 
     df_enriched = df_unified.select("transaction_id","store_name","location","product_name","category","quantity","transaction_date", "price")
 
