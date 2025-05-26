@@ -70,6 +70,9 @@ def transform_dataframe(df_product, df_sales, df_store):
     df_enriched = df_unified.select("transaction_id","store_name","location","product_name","category","quantity","transaction_date", "price")
 
     df_enriched = df_enriched.withColumn("price_category", categorize_products(col("price")))
+
+    df_agg.show()
+    df_monthly_insights.show()
     df_enriched.show()
     
     return df_agg, df_monthly_insights, df_enriched

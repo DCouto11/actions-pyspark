@@ -47,8 +47,7 @@ os.system("cat output/*.csv > output/agg_sales.csv")
 os.system("rm output/part-*")
 
 # Saving DataFrames in Parquet format
-df_enriched_sales.show()
-#df_enriched_sales.write.partitionBy('category','transaction_date').mode("overwrite").format("parquet").save("output/enriched_sales.parquet")
+df_enriched_sales.write.partitionBy('category','transaction_date').mode("overwrite").format("parquet").save("output/enriched_sales.parquet")
 
 # Ending Spark session
 spark.stop()
