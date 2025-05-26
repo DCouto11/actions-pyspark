@@ -93,6 +93,7 @@ def test_transform_dataframe():
         StructField("store_name", StringType(), True),
         StructField("location", StringType(), True),
         StructField("product_name", StringType(), True),
+        StructField("category", StringType(), True),
         StructField("quantity", IntegerType(), True),
         StructField("transaction_date", DateType(), True),
         StructField("price", FloatType(), True),
