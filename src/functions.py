@@ -57,7 +57,6 @@ def transform_dataframe(df_product, df_sales, df_store):
     df_unified = df_sales.join(df_product, ['product_id'], how='left') \
                          .join(df_store, ['store_id'], how='left')
     df_unified = df_unified.withColumn("revenue", df_unified["quantity"] * df_unified["price"])
-    df_unified.show()
 
     df_agg = df_unified.groupBy("store_id", "category").sum("revenue").withColumnRenamed("sum(revenue)","total_revenue")
 
@@ -71,5 +70,9 @@ def transform_dataframe(df_product, df_sales, df_store):
 
     categorize_products_udf = udf(categorize_products , StringType())
     df_enriched = df_enriched.withColumn("price_category", categorize_products_udf(col("price")))
+    
+    df_agg.show()
+    df_monthly_insights.show()
+    df_enriched.show()
 
     return df_agg, df_monthly_insights, df_enriched

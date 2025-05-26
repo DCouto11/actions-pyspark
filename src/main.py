@@ -28,9 +28,9 @@ schema_stores = StructType([
 ])
 
 # Loading CSV files with schemas into DataFrames
-df_products = spark.read.option("header", "true").schema(schema_products).csv("files/products.csv")
-df_sales = spark.read.option("header", "true").schema(schema_sales).csv("files/sales.csv")
-df_stores = spark.read.option("header", "true").schema(schema_stores).csv("files/stores.csv")
+df_products = spark.read.option("header", "true").option("delimiter",";").schema(schema_products).csv("files/products.csv")
+df_sales = spark.read.option("header", "true").option("delimiter",";").schema(schema_sales).csv("files/sales.csv")
+df_stores = spark.read.option("header", "true").option("delimiter",";").schema(schema_stores).csv("files/stores.csv")
 
 # Cleaning DataFrames (removing nulls, duplicates, trimming strings)
 df_prod_clean = clean_dataframe(df_products)
