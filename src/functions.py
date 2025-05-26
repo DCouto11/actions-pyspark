@@ -59,7 +59,7 @@ def transform_dataframe(df_product, df_sales, df_store):
     df_unified = df_unified.withColumn("revenue", df_unified["quantity"] * df_unified["price"])
     df_unified.show()
 
-    df_agg = df_unified.groupBy("store_id", "category").sum("revenue").withColumnRenamed("sum(salary)","total_revenue")
+    df_agg = df_unified.groupBy("store_id", "category").sum("revenue").withColumnRenamed("sum(revenue)","total_revenue")
 
     df_monthly_insights = df_unified.select("transaction_date", "category", "quantity")
     df_monthly_insights = df_monthly_insights.withColumn("month", month(df_monthly_insights["transaction_date"]))
