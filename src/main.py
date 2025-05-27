@@ -41,9 +41,11 @@ df_stores_clean = clean_dataframe(df_stores)
 # DataFrame transformations (sales aggregation, monthly sales insights)
 df_agg_sales, df_monthly_sales, df_enriched_sales = transform_dataframe(df_prod_clean, df_sales_clean, df_stores_clean)
 
-# Saving DataFrames in CSV format
+# Saving DataFrame in CSV format
 os.system("rm output/agg_sales.csv")
 df_agg_sales.coalesce(1).write.mode("overwrite").csv("output", header=True)
+
+#Cleaning files in output directory
 os.system("cat output/*.csv > output/agg_sales.csv")
 os.system("rm output/*part-*")
 os.system("rm output/*_SUCCESS*")
