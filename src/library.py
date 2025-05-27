@@ -5,7 +5,6 @@ def clean_dataframe(df):
     """
     Clean a Spark DataFrame by removing rows with null values and duplicates.
     Args:
-        session (SparkSession): Spark session.
         df (DataFrame): DataFrame to clean.
 
     Returns:
@@ -40,7 +39,6 @@ def transform_dataframe(df_product, df_sales, df_store):
     """
     Transform a Spark DataFrame by cleaning it and applying additional transformations.
     Args:
-        session (SparkSession): Spark session.
         df_product (DataFrame): DataFrame with information related with products.
         df_sales (DataFrame): DataFrame with information related with sales.
         df_store (DataFrame): DataFrame with information related with stores.
@@ -55,22 +53,30 @@ def transform_dataframe(df_product, df_sales, df_store):
         3. Integrate UDF function to implement new column.
     
     """
+    # Created a full dataframe with all information
     df_unified = df_sales.join(df_product, ['product_id'], how='left') \
                          .join(df_store, ['store_id'], how='left')
+
+    # Calculate revenue based on other columns
     df_unified = df_unified.withColumn("revenue", df_unified["quantity"] * df_unified["price"])
 
+    # Aggroupation for 1st task
     df_agg = df_unified.groupBy("store_id", "category").sum("revenue").withColumnRenamed("sum(revenue)","total_revenue")
 
+    # Select specific columns, rearrange the data needed and aggroupation
     df_monthly_insights = df_unified.select("transaction_date", "category", "quantity")
     df_monthly_insights = df_monthly_insights.withColumn("month", month(df_monthly_insights["transaction_date"]))
     df_monthly_insights = df_monthly_insights.withColumn("year", year(df_monthly_insights["transaction_date"]))
     df_monthly_insights = df_monthly_insights.groupBy("year", "month", "category").sum("quantity").withColumnRenamed("sum(quantity)","total_quantity")
     df_monthly_insights = df_monthly_insights.withColumn("total_quantity", col("total_quantity").cast(IntegerType()))
 
+    # Select for 3rd task
     df_enriched = df_unified.select("transaction_id","store_name","location","product_name","category","quantity","transaction_date", "price")
-
+    
+    # UDF calling
     df_enriched = df_enriched.withColumn("price_category", categorize_products(col("price")))
 
+    # Visualization of dataframes prior to return
     df_agg.show()
     df_monthly_insights.show()
     df_enriched.show()
