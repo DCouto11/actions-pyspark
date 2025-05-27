@@ -11,16 +11,16 @@ Index
 ## Approach and design
 When it comes to think about the implementation, it comes with a basic structure and performance
 -  main.py -> Python code to run with the calling to different functions.
-  - Here, it is taken into consideration the implementation of schemas to ensure data validation.
-  - Precisely, it is included additional parameters when it comes to clean the data with several examples (duplicated columns, trimming...)
+    - Here, it is taken into consideration the implementation of schemas to ensure data validation.
+    - Precisely, it is included additional parameters when it comes to clean the data with several examples (duplicated columns, trimming...)
 -  library.py -> Python file with the different functions to be implemented (and also tested).
-  - A function for cleaning data.
-  - A function to perform all the transformations.
-    - The initial approach was to persist the joined dataframe to perform the different operations.
-    - That approach should be discarded when data scales and may lower the performance.
+    - A function for cleaning data.
+    - A function to perform all the transformations.
+        - The initial approach was to persist the joined dataframe to perform the different operations.
+        - That approach should be discarded when data scales and may lower the performance.
 -  tests -> Despite it is true that the first thing to do are the test rather than the functions themselves, there was some feedback between them.
-  - For instance, differences between file and test input when it comes to data format (LongType vs IntegerType for store_id)
-  - In addition, the same implementation of schema should be done at first (as it must be the same behavior than real time execution.
+    - For instance, differences between file and test input when it comes to data format (LongType vs IntegerType for store_id)
+    - In addition, the same implementation of schema should be done at first (as it must be the same behavior than real time execution.
 
 ## Assumptions done
 In reference to assumptions, there were few in terms of coding and designing the pipeline
